@@ -1,0 +1,109 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZGW_ASN_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Summary" sap:content-version="1">
+				<Key><PropertyRef Name="AsnId"/></Key><Property Name="PageNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="3-Byte field"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PageSize" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="3-Byte field"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AgreementId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AgreementItem" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="MsgType" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MsgText" Type="Edm.String" Nullable="false" MaxLength="150" sap:unicode="false" sap:label="MsgText" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="VendorId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="DeliveryDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="AsnId" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="ASN ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CreatedDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="GeNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="GE NO" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="UpdatedDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="GrNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="GR NO" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="GeDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="GeDate" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="GrDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="GrDate" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="InvoiceDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="InvoiceDate" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="plant" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="Header" Relationship="ZGW_ASN_SRV.ASNHeader" FromRole="FromRole_ASNHeader" ToRole="ToRole_ASNHeader"/></EntityType>
+			<EntityType Name="Item" sap:content-version="1">
+				<Key><PropertyRef Name="AsnId"/><PropertyRef Name="AsnDetailsId"/><PropertyRef Name="ItemNo"/></Key><Property Name="MaterialLocation" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Material Location"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="0" sap:unicode="false" sap:label="Quantity"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ItemPrice" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="Per item price"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DeliveryDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Delivery date" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MaterialName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Task text"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AsnId" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="ASN ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StoreLocation" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Storage Loc."
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AsnDetailsId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ASN Detail id"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DolStatus" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Character Field Length = 10"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ItemNo" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Item No." sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StdPkg" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Character Field Length = 15"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Location" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Location" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Material" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AmountBeforeTaxes" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AmountAfterTaxes" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Uom" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Uom" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AgreementId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="agreement ID"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AgreementItem" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="agreement item"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DeliverySchedule" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="DELIVERY_SCHEDULE"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="IgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="IGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="IgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="IGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="CGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="CGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="SgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="SGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="SgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="SGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="Header" sap:content-version="1">
+				<Key><PropertyRef Name="AsnId"/><PropertyRef Name="AsnDetailsId"/></Key><Property Name="AsnId" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="ASN ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="STATUS" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="OtherCharges" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="OTHER_CHARGES"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Tax" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="Tax Value" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DocumentDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="InvoiceDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="AsnDetailsId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ASN details id"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TotalAmount" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="TOTAL_AMOUNT"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TrackingNo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Tracking No."
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TransporterName" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Transporter name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StatusReference" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="STATUS_REFERENCE"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="VehicleNo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Vehicle No."
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="VehicleName" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Vehicle Name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DriverName" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Driver Name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DriverContactNumber" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Driver contact number"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PurchasingGroup" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="purchasing group"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="VendorCode" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Vendor" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="InvoiceNo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="invoice no"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ChallanNo" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Challan No" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="InvoiceValue" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="invoice value"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="IgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="IGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="IgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="IGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="CGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="CGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="SgstPer" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="SGST Percentage"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="SgstAmnt" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="SGST Amount"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Text" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Company Code"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CompanyName" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false"
+					sap:label="Name of Company Code or Company" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PlantCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Plant" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PlantName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PgCode" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Character Field Length = 10"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="VendorName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PgName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="Item" Relationship="ZGW_ASN_SRV.ASNItem" FromRole="FromRole_ASNItem" ToRole="ToRole_ASNItem"/></EntityType>
+			<Association Name="ASNHeader" sap:content-version="1"><End Type="ZGW_ASN_SRV.Summary" Multiplicity="0..1" Role="FromRole_ASNHeader"/><End Type="ZGW_ASN_SRV.Header" Multiplicity="*" Role="ToRole_ASNHeader"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_ASNHeader"><PropertyRef Name="AsnId"/></Principal>
+					<Dependent Role="ToRole_ASNHeader"><PropertyRef Name="AsnId"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASNItem" sap:content-version="1"><End Type="ZGW_ASN_SRV.Header" Multiplicity="0..1" Role="FromRole_ASNItem"/><End Type="ZGW_ASN_SRV.Item" Multiplicity="*" Role="ToRole_ASNItem"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_ASNItem"><PropertyRef Name="AsnId"/><PropertyRef Name="AsnDetailsId"/></Principal>
+					<Dependent Role="ToRole_ASNItem"><PropertyRef Name="AsnId"/><PropertyRef Name="AsnDetailsId"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZGW_ASN_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="SummarySet" EntityType="ZGW_ASN_SRV.Summary" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="ItemSet" EntityType="ZGW_ASN_SRV.Item" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="HeaderSet" EntityType="ZGW_ASN_SRV.Header" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="ASNHeader_AssocSet" Association="ZGW_ASN_SRV.ASNHeader" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="SummarySet" Role="FromRole_ASNHeader"/><End EntitySet="HeaderSet" Role="ToRole_ASNHeader"/></AssociationSet>
+				<AssociationSet Name="ASNItem_AssocSet" Association="ZGW_ASN_SRV.ASNItem" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:content-version="1"><End EntitySet="HeaderSet" Role="FromRole_ASNItem"/><End EntitySet="ItemSet" Role="ToRole_ASNItem"/></AssociationSet>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZGW_ASN_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZGW_ASN_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

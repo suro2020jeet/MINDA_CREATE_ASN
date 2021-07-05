@@ -1,0 +1,260 @@
+<mvc:View displayBlock="true" controllerName="com.minda.CreateAsn.controller.Detail" height="100%" xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<f:DynamicPage stickySubheaderProvider="wizard" showFooter="false" class="sapUiNoContentPadding" fitContent="true"
+		busy="{detailViewModel>/busy}">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<m:Title text="Order Id: {detailViewModel>/AgreementNo}" wrapping="true"/>
+				</f:heading>
+				<f:expandedContent>
+					<m:Text text="Scheduled Delivery Date: {path: 'detailViewModel>/SDDate', formatter: '.formatter.setSDDate'}"/>
+				</f:expandedContent>
+				<f:snappedContent>
+					<m:Text text="Scheduled Delivery Date: {path: 'detailViewModel>/SDDate', formatter: '.formatter.setSDDate'}"/>
+				</f:snappedContent>
+				<f:snappedTitleOnMobile>
+					<m:Title text="Order Id: {detailViewModel>/AgreementNo}" wrapping="true"/>
+				</f:snappedTitleOnMobile>
+				<f:actions>
+					<m:Button visible="{= ${device>/system/phone}? true:false}" type="Transparent" icon="sap-icon://decline" press="handleClose"
+						tooltip="Go to Master List"/>
+					<m:Button icon="sap-icon://download" text="DOWNLOAD TEMPLATE" visible="{detailViewModel>/downloadTemplVisible}" press="onPressDownload"
+						type="Emphasized"/>
+					<m:Button icon="sap-icon://upload" text="UPLOAD CSV" visible="{detailViewModel>/uploadCSVButtonVisible}" press="onPressUpload"
+						type="Emphasized"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Header -->
+		<f:content>
+			<m:Wizard id="wizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="wizardCompletedHandler"
+				renderMode="Page" showNextButton="false">
+				<m:WizardStep icon="sap-icon://product" id="materialSelectStep" title="Select Material" validated="false">
+					<m:HBox justifyContent="End">
+						<m:Button text="Continue" icon="sap-icon://open-command-field" type="Success" press="onPressFirstStep"
+							enabled="{detailViewModel>/firstStepContinueEnabled}"/>
+					</m:HBox>
+					<m:OverflowToolbar>
+						<m:content>
+							<m:Title text="{detailViewModel>/tableTitle}"/>
+							<m:ToolbarSpacer/>
+							<m:SearchField width="20%" placeholder="Search Material Code..." liveChange="onMaterialCodeSearch"/>
+							<m:SearchField width="20%" placeholder="Search Material Name..." liveChange="onMaterialNameSearch"/>
+							<m:DateRangeSelection displayFormat='dd/MM/YYYY' showFooter="true" width="25%" change="handleDateRangeChange" placeholder="From / To Date"
+								dateValue="{detailViewModel>/previousMonth}" secondDateValue="{detailViewModel>/toDate}"/>
+							<m:Button icon="sap-icon://download" text="Download Selected" tooltip="Download Selected" type="Emphasized" press="onPressDownloadSelected"
+								visible="{detailViewModel>/selectedDownloadButtonVisible}"/>
+						</m:content>
+					</m:OverflowToolbar>
+					<m:ScrollContainer height="500px" vertical="true" class="sapMSCCss">
+						<m:Table id="table" noDataText="There is no data, select date range..." items="{detailViewModel>/items}"
+							sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" selectionChange="onSelectionChange">
+							<m:infoToolbar>
+								<m:OverflowToolbar>
+									<m:Title text="{detailViewModel>/infoToolbarText}"/>
+								</m:OverflowToolbar>
+							</m:infoToolbar>
+							<m:columns>
+								<m:Column demandPopin="true" minScreenWidth="Phone">
+									<m:Label design="Bold" text="MATERIAL CODE" wrapping="true"/>
+								</m:Column>
+								<m:Column demandPopin="true" minScreenWidth="Phone">
+									<m:Label design="Bold" text="MATERIAL NAME" wrapping="true"/>
+								</m:Column>
+								<m:Column demandPopin="true" minScreenWidth="Tablet">
+									<m:VBox>
+										<m:Label design="Bold" text="PENDING QTY WITH LEAD TIME" wrapping="true"/>
+										<m:Title text="(*AS ON TODAY+ LEAD TIME + 2 DAYS)" wrapping="true" titleStyle="H6"/>
+									</m:VBox>
+								</m:Column>
+								<m:Column demandPopin="true" minScreenWidth="Desktop">
+									<m:Label design="Bold" text="STD. PACK" wrapping="true"/>
+								</m:Column>
+								<m:Column demandPopin="true" minScreenWidth="Phone">
+									<m:Label design="Bold" text="SET DELIVERY QTY." wrapping="true"/>
+								</m:Column>
+							</m:columns>
+							<m:items>
+								<m:ColumnListItem type="Inactive">
+									<m:cells>
+										<m:Text text="{detailViewModel>MaterialCode}"/>
+										<m:Text text="{detailViewModel>MaterialName}"/>
+										<m:Text text="{detailViewModel>PendingQty} {detailViewModel>Uom}"/>
+										<m:Text text="{detailViewModel>StandardPack}"/>
+										<m:Input value="{detailViewModel>ViewQty}" placeholder="Quantity" type="Number" change="onTableLineitemInputChange"/>
+									</m:cells>
+								</m:ColumnListItem>
+							</m:items>
+						</m:Table>
+					</m:ScrollContainer>
+				</m:WizardStep>
+				<m:WizardStep icon="sap-icon://to-be-reviewed" id="reviewQuantityStep" validated="true" title="Review Quantity" activate="true">
+					<m:HBox justifyContent="SpaceBetween">
+						<m:Button text="Back" icon="sap-icon://close-command-field" type="Default" press="onPressWizardBack"/>
+						<m:Button text="Continue" icon="sap-icon://open-command-field" type="Success" press="onPressSecondStep"
+							enabled="{detailViewModel>/secondStepContinueEnabled}"/>
+					</m:HBox>
+					<m:VBox >
+						<m:OverflowToolbar>
+							<m:content>
+								<m:Title text="{detailViewModel>/taxTableDataTitle}"/>
+								<m:ToolbarSpacer/>
+								<m:ObjectStatus state="Success" text="{path: 'detailViewModel>/totalShipmentValue', formatter: '.formatter.concatRupeeSign'}"
+									title="Total Shipment Value" class="customOSClass"/>
+							</m:content>
+						</m:OverflowToolbar>
+						<m:VBox class="sapMSCCss">
+							<m:ScrollContainer width="100%" horizontal="true">
+								<m:Table id="tab" items="{detailViewModel>/taxTableData}" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar"
+									selectionChange="onSelectionChange">
+									<m:headerToolbar></m:headerToolbar>
+									<m:columns>
+										<m:Column demandPopin="true" minScreenWidth="Phone">
+											<m:Label design="Bold" text="MATERIAL CODE" wrapping="true"/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Phone">
+											<m:Label design="Bold" text="MATERIAL NAME" wrapping="true"/>
+										</m:Column>
+										<m:Column width="10rem" demandPopin="true" minScreenWidth="Phone"></m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Tablet">
+											<m:Label design="Bold" text="STD. PACK" wrapping="true"/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Tablet">
+											<m:Label design="Bold" text="SCHEDULED DATE" wrapping="true"/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Desktop">
+											<m:Label design="Bold" text="PENDING QTY."/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Desktop">
+											<m:Label design="Bold" text="SHIPPING QTY." wrapping="true"/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Desktop">
+											<m:Label design="Bold" text="VALUE" wrapping="true"/>
+										</m:Column>
+										<m:Column demandPopin="true" minScreenWidth="Desktop">
+											<m:Label design="Bold" text="GST" wrapping="true"/>
+										</m:Column>
+										<m:Column width="4rem" demandPopin="true" minScreenWidth="Phone"></m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem type="Inactive">
+											<m:cells>
+												<m:Text text="{detailViewModel>MaterialCode}"/>
+												<m:Text text="{detailViewModel>MaterialName}"/>
+												<m:Text text="{}"/>
+												<m:Text text="{detailViewModel>StandardPack}"/>
+												<m:Text text="{path: 'detailViewModel>DeliveryDate', formatter: '.formatter.setDate'}"/>
+												<m:Text text="{detailViewModel>PendingQty} {detailViewModel>Uom}"/>
+												<m:Text text="{detailViewModel>Quantity}"/>
+												<m:Text text="{path: 'detailViewModel>Value', formatter: '.formatter.concatRupeeSign'}"/>
+												<m:Text text="18%"/>
+												<m:Button icon="sap-icon://delete" type="Reject" press="onPressDeleteTableLineItem"/>
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:ScrollContainer>
+							<m:HBox class="sapUiTinyMarginTop" width="90%" visible="{detailViewModel>/subTotalVisible}">
+								<m:HBox width="{= ${device>/system/phone}? '20%':'80%'}"></m:HBox>
+								<m:VBox width="{= ${device>/system/phone}? '80%':'20%'}">
+									<m:HBox justifyContent="SpaceBetween">
+										<m:Label design="Bold" text="SUB TOTAL:"/>
+										<m:Text text="{path: 'detailViewModel>/subTotal', formatter: '.formatter.concatRupeeSign'}"/>
+									</m:HBox>
+									<m:VBox class="borderTopBottomCssClass sapUiTinyMarginTop sapUiTinyMarginBottom">
+										<m:HBox class="sapUiTinyMarginTop" justifyContent="SpaceBetween">
+											<m:Label text="CGST:"/>
+											<m:Text text="{detailViewModel>/otherValues}"/>
+										</m:HBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label text="SGST:"/>
+											<m:Text text="{detailViewModel>/otherValues}"/>
+										</m:HBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label text="IGST:"/>
+											<m:Text text="{path: 'detailViewModel>/totalTax', formatter: '.formatter.concatRupeeSign'}"/>
+										</m:HBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label text="TOTAL TAX:"/>
+											<m:Text text="{path: 'detailViewModel>/totalTax', formatter: '.formatter.concatRupeeSign'}"/>
+										</m:HBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label design="Bold" text="TCS:"/>
+											<m:Text text="{detailViewModel>/otherValues}"/>
+										</m:HBox>
+									</m:VBox>
+									<m:VBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label text="OTHER CHARGES:"/>
+											<m:Text text="{detailViewModel>/otherValues}"/>
+										</m:HBox>
+										<m:HBox justifyContent="SpaceBetween">
+											<m:Label design="Bold" text="TOTAL SHIPMENT VALUE:"/>
+											<m:Text text="{path: 'detailViewModel>/totalShipmentValue', formatter: '.formatter.concatRupeeSign'}"/>
+										</m:HBox>
+									</m:VBox>
+								</m:VBox>
+							</m:HBox>
+						</m:VBox>
+					</m:VBox >
+				</m:WizardStep>
+				<m:WizardStep icon="sap-icon://form" id="confirmStep" validated="true" title="ADD DETAILS AND CONFIRM">
+					<m:HBox justifyContent="SpaceBetween">
+						<m:Button text="Back" icon="sap-icon://close-command-field" type="Default" press="onPressWizardBack"/>
+						<m:Button text="Confirm ASN" type="Success" press="onPressConfirmASN"/>
+					</m:HBox>
+					<form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="6" labelSpanS="12"
+						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+						singleContainerFullSize="false">
+						<form:content>
+							<core:Title text="COMPANY DETAILS"/>
+							<m:Label text="Company"/>
+							<m:Text text="{detailViewModel>/CompCodeName}"/>
+							<m:Label text="Plant"/>
+							<m:Text text="{detailViewModel>/Plant}"/>
+							<m:Label text="Vendor"/>
+							<m:Text text="{detailViewModel>/VendorName}"/>
+							<m:Label text="Vendor Code"/>
+							<m:Text text="{detailViewModel>/VendorCode}"/>
+							<core:Title text="SHIPMENT DETAILS"/>
+							<m:Label text="Tax(IGST+CGST+SCST+TCS)"/>
+							<m:Text text="{path: 'detailViewModel>/totalTax', formatter: '.formatter.concatRupeeSign'}"/>
+							<m:Label text="Shipment Value"/>
+							<m:Text text="{path: 'detailViewModel>/subTotal', formatter: '.formatter.concatRupeeSign'}"/>
+							<m:Label text="Other Charges"/>
+							<m:Text text="{detailViewModel>/otherValues}"/>
+							<m:Label design="Bold" text="Total Shipment Value"/>
+							<m:Text text="{path: 'detailViewModel>/totalShipmentValue', formatter: '.formatter.concatRupeeSign'}"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+						singleContainerFullSize="false">
+						<form:content>
+							<core:Title text="INVOICE DETAILS"/>
+							<m:Label required="true" text="Invoice Value"/>
+							<m:Input value="{detailViewModel>/invoiceValue}" placeholder="Invoice Value" type="Number"/>
+							<m:Label required="true" text="Invoice No"/>
+							<m:Input value="{detailViewModel>/invoiceNo}" placeholder="Invoice No"/>
+							<m:Label required="true" text="Invoice Date"/>
+							<m:DatePicker dateValue="{detailViewModel>/invoiceDate}" displayFormat="dd/MM/YYYY" placeholder="Invoice Date"/>
+							<core:Title text="TRACKING DETAILS"/>
+							<m:Label text="Tracking No"/>
+							<m:Input value="{detailViewModel>/trackingNo}" placeholder="Tracking No"/>
+							<m:Label required="true" text="Vehicle No"/>
+							<m:Input value="{detailViewModel>/vechileNo}" placeholder="Vechile No"/>
+							<m:Label text="Driver name"/>
+							<m:Input value="{detailViewModel>/driverName}" placeholder="Driver Name"/>
+							<m:Label text="Driver Number"/>
+							<m:Input value="{detailViewModel>/driverNo}" placeholder="Driver No"/>
+							<m:Label text="Transporter Name"/>
+							<m:Input value="{detailViewModel>/transporterName}" placeholder="Transporter Name"/>
+						</form:content>
+					</form:SimpleForm>
+				</m:WizardStep>
+			</m:Wizard>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
