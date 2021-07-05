@@ -1,0 +1,2 @@
+# MINDA_CREATE_ASN
+Create ASN app
