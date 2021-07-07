@@ -17,11 +17,31 @@ sap.ui.define([
 			// debugger;
 			this.getOwnerComponent().setModel(new JSONModel({
 				busy: true,
-				PageNumber: "1"
+				PageNumber: "1",
+				plant: "1031",
+				VendorId: "0000200323",
+				showAdvancedSearch: false
 			}), "listViewModel");
 			this.oRouter = this.getOwnerComponent().getRouter();
 			this._bDescendingSort = false;
-			this._getUserDetails();
+			if (!sap.ushell) {} else {
+				if (sap.ui.getCore().plants != undefined) {
+					if (sap.ui.getCore().plants.hasOwnProperty("plant")) {
+						if (sap.ui.getCore().plants.plant) {
+							this.getOwnerComponent().getModel("listViewModel").setProperty("/plant", sap.ui.getCore().plants.plant);
+							this._getMasterListData(this.getOwnerComponent().getModel("listViewModel").getProperty("/PageNumber"));
+						}
+					}
+					sap.ui.getCore().plants.registerListener(function (val) {
+						if (val) {
+							this.getOwnerComponent().getModel("listViewModel").setProperty("/plant", val);
+							this._getMasterListData(this.getOwnerComponent().getModel("listViewModel").getProperty("/PageNumber"));
+						}
+					}.bind(this));
+				}
+			}
+			// this._getUserDetails();
+			// this._getMasterListData(this.getOwnerComponent().getModel("listViewModel").getProperty("/PageNumber"));
 		},
 
 		onListItemPress: function (oEvent) {

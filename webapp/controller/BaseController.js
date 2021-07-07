@@ -11,7 +11,8 @@ sap.ui.define([
 			var filter = [];
 			filter.push(new sap.ui.model.Filter("VendorId", sap.ui.model.FilterOperator.EQ, this.getOwnerComponent().getModel("listViewModel").getProperty(
 				"/VendorId")));
-			filter.push(new sap.ui.model.Filter("Plant", sap.ui.model.FilterOperator.EQ, "1031"));
+			filter.push(new sap.ui.model.Filter("Plant", sap.ui.model.FilterOperator.EQ, this.getOwnerComponent().getModel("listViewModel").getProperty(
+				"/plant")));
 			filter.push(new sap.ui.model.Filter("PageNumber", sap.ui.model.FilterOperator.EQ, PageNumber));
 			filter.push(new sap.ui.model.Filter("PageSize", sap.ui.model.FilterOperator.EQ, "20"));
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
